@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--    数据库驱动-->
+    <!--        在左侧project边栏的External Libraries中找到mysql的驱动，右键选择copy path(绝对路径)-->
+    <!--    mysql所在jar包的绝对路径-->
+
+    <classPathEntry location="D:\tools\repository\mysql\mysql-connector-java\8.0.28\mysql-connector-java-8.0.28.jar"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+<!--        <property name="endingDelimiter" value="`"/>-->
+<!--        <property name="beginningDelimiter" value="`"/>-->
+<!--        <property name="javaFileEncoding" value="UTF-8"/>-->
+<!--        <property name="autoDelimitKeywords" value="true"/>-->
+
+        <!-- custom comment generator is required for auto merger -->
+        <commentGenerator>
+            <!--  是否去除日期那行注释-->
+            <property name="suppressDate" value="true"/>
+            <!--  是否去除自动生成的注释  true：是，false:否-->
+            <property name="suppressAllComments" value="true"/>
+
+            <!--  <property name="addDatabaseRemark" value="true"/>-->
+            <!--  <property name="generatedComment" value="generated automatically, do not modify!"/>-->
+        </commentGenerator>
+
+        <jdbcConnection
+                connectionURL="jdbc:mysql://localhost:3306/srm"
+                driverClass="com.mysql.cj.jdbc.Driver"
+                userId="root"
+                password="123456">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+        <!-- 数据库链接地址账号密码-->
+
+        <!-- java类型处理器：-->
+        <!--    用户处理DB中的类型到JAVA中的类型，默认使用JavaTypeResolverDefaultImpl;-->
+        <!--    注意一点，默认会先尝试使用Integer，Long，Short等来对应的DECIMAL和NUMERIC数据类型；-->
+        <!--    true：使用BigDecimal对应DECIMAL和NUMERIC数据类型-->
+        <!--    false:默认 把JDBC　DECIMAL和NUMERIC类型解析为Integer-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+            <!--<property name="useJSR310Types" value="false"/>-->
+        </javaTypeResolver>
+
+        <!-- 生成 model 类存放位置-->
+        <javaModelGenerator targetPackage="com.liu.crm.vo" targetProject="src/main/java">
+            <!-- 设置是否在getter方法中，对String类型字段调用trim()方法-->
+            <property name="trimStrings" value="true"/>
+            <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false-->
+            <property name="enableSubPackages" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成dao类文件存放位置-->
+        <javaClientGenerator targetPackage="com.liu.crm.dao" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- TODO define tables here -->
+        <table tableName="t_user" domainObjectName="User"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableCountByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+<!--            <generatedKey column="id" identity="true" sqlStatement="JDBC"/>-->
+        </table>
+    </context>
+    </generatorConfiguration>
