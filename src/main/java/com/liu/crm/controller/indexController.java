@@ -49,6 +49,5 @@ public class indexController extends BaseController {
         return "main";
 //        内部跳转用的是转发，转发可以用作用域去传递
 //        request一次请求，再次点击超链接之后，请求就会失效
-        //this is a test
     }
 }
