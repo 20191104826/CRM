@@ -36,10 +36,22 @@ layui.use(['form', 'jquery', 'jquery_cookie'], function () {
                      *      保存用户信息，cookie未失效，则用户是登录状态。
                      */
                     layer.msg("登录成功!", function () {
-                        //将用户信息设置到cookie中
-                        $.cookie("userIdStr", result.result.userIdStr);
-                        $.cookie("userName", result.result.userName);
-                        $.cookie("userPwd", result.result.userPwd);
+                        //判断是否是否选择记住密码（判断复选框是否被选中）
+                        //如果选中，则设置cookie七天后失效
+                        if ($("#rememberMe").prop("checked")){
+                            //选中，设置cookie七天失效
+                            //将用户信息设置到cookie中
+                            $.cookie("userIdStr", result.result.userIdStr,{expires:7});
+                            $.cookie("userName", result.result.userName,{expires:7});
+                            $.cookie("trueName", result.result.trueName,{expires:7});
+
+                        }else{
+                            //将用户信息设置到cookie中
+                            $.cookie("userIdStr", result.result.userIdStr);
+                            $.cookie("userName", result.result.userName);
+                            $.cookie("trueName", result.result.trueName);
+                        }
+
                         //登录成功后，跳转到首页
                         window.location.href = ctx + "/main";
                     });
