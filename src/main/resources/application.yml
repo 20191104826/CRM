@@ -29,7 +29,7 @@ spring:
 ## mybatis 配置
 mybatis:
   mapper-locations: classpath:/mappers/*.xml
-  type-aliases-package: com.liu.vo;com.liu.query;com.liu.dto
+  type-aliases-package: com.liu.crm.vo;com.liu.crm.query;com.liu.crm.dto
   configuration:
     map-underscore-to-camel-case: true
 
