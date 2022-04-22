@@ -48,11 +48,43 @@ layui.use(['form', 'layer'], function () {
         return false;
     });
 
+        //关闭弹出层
         $("#closeBtn").click(function () {
             //当你在iframe页面关闭自身时
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index); //再执行关闭
         });
 
+    /**
+     * 加载指派人的下拉框
+     */
+    $.ajax({
+        type:"GET",
+        url:ctx + "/user/queryAllSales",
+        data:{},
+        success:function (data) {
+            // console.log(data);
+            //判断返回的数据是否为空
+            if(data != null){
+                //获取隐藏域设置的指派人ID
+                var assignManId = $("#assignManId").val();
+                //遍历返回的数据
+                for(var i = 0;i<data.length;i++){
+                    var opt = "";
+                    if(assignManId == data[i].id){
+                        //设置下拉选项  下拉选项选中
+                        opt = "<option value='"+data[i].id+"' selected>"+data[i].uname+"</option>";
+                    }else{
+                        //设置下拉选项
+                        opt = "<option value='"+data[i].id+"'>"+data[i].uname+"</option>";
+                    }
+                    //将下拉选项设置到下拉框中
+                    $("#assignMan").append(opt);
+                }
+            }
+            //重新渲染下拉框的内容
+            layui.form.render("select");
+        }
+    });
 
 });

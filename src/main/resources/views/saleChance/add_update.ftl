@@ -7,6 +7,8 @@
         <form class="layui-form" style="width:80%;">
             <!--设置营销机会ID的隐藏域-->
             <input type="hidden" name="id" value="${(saleChance.id)!}">
+            <#--设置指派人的隐藏域ID-->
+            <input type="hidden" id="assignManId" value="${(saleChance.assignMan)!}">
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">客户名称</label>
                 <div class="layui-input-block">
