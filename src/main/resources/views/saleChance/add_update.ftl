@@ -5,48 +5,50 @@
     </head>
     <body class="childrenBody">
         <form class="layui-form" style="width:80%;">
+            <!--设置营销机会ID的隐藏域-->
+            <input type="hidden" name="id" value="${(saleChance.id)!}">
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">客户名称</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" lay-verify="required" name="customerName" id="customerName"  value="" placeholder="请输入客户名称">
+                    <input type="text" class="layui-input" lay-verify="required" name="customerName" id="customerName"  value="${(saleChance.customerName)!}" placeholder="请输入客户名称">
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">机会来源</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input"  name="chanceSource" id="chanceSource" value="" placeholder="请输入机会来源">
+                    <input type="text" class="layui-input"  name="chanceSource" id="chanceSource" value="${(saleChance.chanceSource)!}" placeholder="请输入机会来源">
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">联系人</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="linkMan"  lay-verify="required"  value="" placeholder="请输入联系人">
+                    <input type="text" class="layui-input" name="linkMan"  lay-verify="required"  value="${(saleChance.linkMan)!}" placeholder="请输入联系人">
                 </div>
             </div>
 
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">联系电话</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" lay-verify="phone" name="linkPhone" value="" id="phone" placeholder="请输入联系电话">
+                    <input type="text" class="layui-input" lay-verify="phone" name="linkPhone" value="${(saleChance.linkPhone)!}" id="phone" placeholder="请输入联系电话">
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">概要</label>
                 <div class="layui-input-block">
                     <input type="text" class="layui-input"
-                            name="overview" value="" id="phone" placeholder="请输入概要">
+                            name="overview" value="${(saleChance.overview)!}" id="phone" placeholder="请输入概要">
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">成功几率(%)</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="cgjl" value="" placeholder="请输入成功几率">
+                    <input type="text" class="layui-input" name="cgjl" value="${(saleChance.cgjl)!}" placeholder="请输入成功几率">
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">机会描述</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入机会描述信息" name="description" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入机会描述信息" name="description" class="layui-textarea">${(saleChance.description)!}</textarea>
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-xs12">

@@ -11,7 +11,7 @@ public class SaleChance {
 
     private String customerName;
 
-    private Integer cgil;
+    private Integer cgjl;
 
     private String overview;
 
@@ -43,14 +43,6 @@ public class SaleChance {
     //分配人
     private String uname;
 
-    public String getUname() {
-        return uname;
-    }
-
-    public void setUname(String uname) {
-        this.uname = uname;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -64,7 +56,7 @@ public class SaleChance {
     }
 
     public void setChanceSource(String chanceSource) {
-        this.chanceSource = chanceSource == null ? null : chanceSource.trim();
+        this.chanceSource = chanceSource;
     }
 
     public String getCustomerName() {
@@ -72,15 +64,15 @@ public class SaleChance {
     }
 
     public void setCustomerName(String customerName) {
-        this.customerName = customerName == null ? null : customerName.trim();
+        this.customerName = customerName;
     }
 
-    public Integer getCgil() {
-        return cgil;
+    public Integer getCgjl() {
+        return cgjl;
     }
 
-    public void setCgil(Integer cgil) {
-        this.cgil = cgil;
+    public void setCgjl(Integer cgjl) {
+        this.cgjl = cgjl;
     }
 
     public String getOverview() {
@@ -88,7 +80,7 @@ public class SaleChance {
     }
 
     public void setOverview(String overview) {
-        this.overview = overview == null ? null : overview.trim();
+        this.overview = overview;
     }
 
     public String getLinkMan() {
@@ -96,7 +88,7 @@ public class SaleChance {
     }
 
     public void setLinkMan(String linkMan) {
-        this.linkMan = linkMan == null ? null : linkMan.trim();
+        this.linkMan = linkMan;
     }
 
     public String getLinkPhone() {
@@ -104,7 +96,7 @@ public class SaleChance {
     }
 
     public void setLinkPhone(String linkPhone) {
-        this.linkPhone = linkPhone == null ? null : linkPhone.trim();
+        this.linkPhone = linkPhone;
     }
 
     public String getDescription() {
@@ -112,7 +104,7 @@ public class SaleChance {
     }
 
     public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+        this.description = description;
     }
 
     public String getCreateMan() {
@@ -120,7 +112,7 @@ public class SaleChance {
     }
 
     public void setCreateMan(String createMan) {
-        this.createMan = createMan == null ? null : createMan.trim();
+        this.createMan = createMan;
     }
 
     public String getAssignMan() {
@@ -128,7 +120,7 @@ public class SaleChance {
     }
 
     public void setAssignMan(String assignMan) {
-        this.assignMan = assignMan == null ? null : assignMan.trim();
+        this.assignMan = assignMan;
     }
 
     public Date getAssignTime() {
@@ -177,5 +169,13 @@ public class SaleChance {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 }

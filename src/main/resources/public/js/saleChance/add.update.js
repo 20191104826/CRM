@@ -17,6 +17,16 @@ layui.use(['form', 'layer'], function () {
 
         //发送ajax请求
         var url = ctx + "/sale_chance/add";  //添加操作
+
+        //通过营销机会的ID来判断当前需要执行添加操作还是修改操作
+        //如果营销机会的ID为空，则表示执行添加操作；如果ID不为空，则表示执行更新操作
+        //通过获取隐藏域中的ID
+        var saleChanceId = $("[name='id']").val();
+        //判断ID是否为空
+        if(saleChanceId != null && saleChanceId != ''){
+            //更新操作
+            url = ctx + "/sale_chance/update";
+        }
         $.post(url, data.field, function (result) {
             //判断操作是否执行成功，200=成功
             if (result.code == 200) {

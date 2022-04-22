@@ -62,11 +62,34 @@ public class SaleChanceController extends BaseController {
     }
 
     /**
+     * 更新营销机会
+     *
+     * @param saleChance
+     * @return
+     */
+    @PostMapping("update")
+    @ResponseBody
+    public ResultInfo updateSaleChance(SaleChance saleChance){
+        //调用Service层的添加方法
+        saleChanceService.updateSaleChance(saleChance);
+        return success("营销机会数据更新成功！");
+    }
+
+    /**
      * 进入添加/修改营销机会数据页面
      * @return
      */
     @RequestMapping("toSaleChancePage")
-    public String toSaleChancePage(){
+    public String toSaleChancePage(Integer saleChanceID,HttpServletRequest request){
+
+        //判断营销机会ID是否为空
+        if(saleChanceID != null){
+            //通过ID查询营销机会数据
+            SaleChance saleChance = saleChanceService.selectByPrimaryKey(saleChanceID);
+            //将数据设置到请求域中
+            request.setAttribute("saleChance",saleChance);
+        }
+
         return "saleChance/add_update";
     }
 }

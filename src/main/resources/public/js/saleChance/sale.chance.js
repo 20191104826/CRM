@@ -144,12 +144,23 @@ layui.use(['table', 'layer'], function () {
     })
 
     /**
-     * 打开添加营销机会数据的窗口
+     * 打开添加 / 修改 营销机会数据的窗口
+     *      如果营销机会ID为空，则为添加操作
+     *      如果不为空，则为修改操作
      */
-    function openSaleChanceDialog() {
+    function openSaleChanceDialog(saleChanceID) {
         //弹出层标题
         var title = "<h3>营销机会管理 - 添加营销机会</h3>";
         var url = ctx + "/sale_chance/toSaleChancePage";
+
+        //判断营销机会ID是否为空
+        if(saleChanceID != null && saleChanceID !=''){
+            //更新操作
+            title = "<h3>营销机会管理 - 修改营销机会</h3>";
+            //请求地址传递营销机会的ID
+            url += "?saleChanceID="+saleChanceID;
+        }
+
         //iframe 层
         layui.layer.open({
             //类型
@@ -163,7 +174,26 @@ layui.use(['table', 'layer'], function () {
             //url地址
             content: url
         });
-
     }
+
+    /**
+     * 行工具栏监听事件
+     * table.on('tool(数据表格的lay-filter属性值)',function (data) {
+     *
+     *     });
+     */
+    table.on('tool(saleChances)',function (data) {
+        console.log(data);
+        //判断类型
+        if(data.event == "edit"){   //编辑操作
+
+            //得到营销机会的ID
+            var saleChanceID = data.data.id;
+            //打开修改营销机会窗口
+            openSaleChanceDialog(saleChanceID);
+        }else if(data.event == "del"){  //删除操作
+
+        }
+    });
 
 });

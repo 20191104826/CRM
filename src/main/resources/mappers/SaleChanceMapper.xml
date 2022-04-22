@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="chance_source" property="chanceSource" jdbcType="VARCHAR" />
     <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
-    <result column="cgil" property="cgil" jdbcType="INTEGER" />
+    <result column="cgjl" property="cgjl" jdbcType="INTEGER" />
     <result column="overview" property="overview" jdbcType="VARCHAR" />
     <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
     <result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
@@ -20,7 +20,7 @@
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, chance_source, customer_name, cgil, overview, link_man, link_phone, description, 
+    id, chance_source, customer_name, cgjl, overview, link_man, link_phone, description,
     create_man, assign_man, assign_time, is_state, dev_result, is_valid, create_date, 
     update_date
   </sql>
@@ -36,13 +36,13 @@
   </delete>
   <insert id="insert" parameterType="com.liu.crm.vo.SaleChance" >
     insert into t_sale_chance (id, chance_source, customer_name, 
-      cgil, overview, link_man, 
+      cgjl, overview, link_man,
       link_phone, description, create_man, 
       assign_man, assign_time, is_state, 
       dev_result, is_valid, create_date, 
       update_date)
     values (#{id,jdbcType=INTEGER}, #{chanceSource,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
-      #{cgil,jdbcType=INTEGER}, #{overview,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
+      #{cgjl,jdbcType=INTEGER}, #{overview,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR},
       #{linkPhone,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createMan,jdbcType=VARCHAR}, 
       #{assignMan,jdbcType=VARCHAR}, #{assignTime,jdbcType=TIMESTAMP}, #{isState,jdbcType=INTEGER}, 
       #{devResult,jdbcType=INTEGER}, #{isValid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
@@ -60,8 +60,8 @@
       <if test="customerName != null" >
         customer_name,
       </if>
-      <if test="cgil != null" >
-        cgil,
+      <if test="cgjl != null" >
+        cgjl,
       </if>
       <if test="overview != null" >
         overview,
@@ -110,8 +110,8 @@
       <if test="customerName != null" >
         #{customerName,jdbcType=VARCHAR},
       </if>
-      <if test="cgil != null" >
-        #{cgil,jdbcType=INTEGER},
+      <if test="cgjl != null" >
+        #{cgjl,jdbcType=INTEGER},
       </if>
       <if test="overview != null" >
         #{overview,jdbcType=VARCHAR},
@@ -160,8 +160,8 @@
       <if test="customerName != null" >
         customer_name = #{customerName,jdbcType=VARCHAR},
       </if>
-      <if test="cgil != null" >
-        cgil = #{cgil,jdbcType=INTEGER},
+      <if test="cgjl != null" >
+        cgjl = #{cgjl,jdbcType=INTEGER},
       </if>
       <if test="overview != null" >
         overview = #{overview,jdbcType=VARCHAR},
@@ -178,12 +178,6 @@
       <if test="createMan != null" >
         create_man = #{createMan,jdbcType=VARCHAR},
       </if>
-      <if test="assignMan != null" >
-        assign_man = #{assignMan,jdbcType=VARCHAR},
-      </if>
-      <if test="assignTime != null" >
-        assign_time = #{assignTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="isState != null" >
         is_state = #{isState,jdbcType=INTEGER},
       </if>
@@ -199,6 +193,9 @@
       <if test="updateDate != null" >
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
+        <!--不判断为空！！！否则sql语句不能通过-->
+        assign_man = #{assignMan,jdbcType=VARCHAR},
+        assign_time = #{assignTime,jdbcType=TIMESTAMP},
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -206,7 +203,7 @@
     update t_sale_chance
     set chance_source = #{chanceSource,jdbcType=VARCHAR},
       customer_name = #{customerName,jdbcType=VARCHAR},
-      cgil = #{cgil,jdbcType=INTEGER},
+      cgjl = #{cgjl,jdbcType=INTEGER},
       overview = #{overview,jdbcType=VARCHAR},
       link_man = #{linkMan,jdbcType=VARCHAR},
       link_phone = #{linkPhone,jdbcType=VARCHAR},
@@ -224,7 +221,7 @@
 
   <select id="selectByParams" parameterType="com.liu.crm.query.SaleChanceQuery" resultType="com.liu.crm.vo.SaleChance">
     select
-    s.id, chance_source, customer_name, cgil, overview, link_man, link_phone, description,
+    s.id, chance_source, customer_name, cgjl, overview, link_man, link_phone, description,
     create_man, assign_man, assign_time, is_state, dev_result, s.is_valid, s.create_date,
     s.update_date,u.user_name uname
     from

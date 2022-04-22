@@ -31,6 +31,7 @@
 			</div>
 		</form>
 	</blockquote>
+<#--	在页面放置一个元素<table id=" demo" ></table>,然后通过table.render() 方法指定该容器-->
 	<table id="saleChanceList" class="layui-table"  lay-filter="saleChances"></table>
 
 <#--头部工具栏-->
