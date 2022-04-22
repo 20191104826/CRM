@@ -224,19 +224,25 @@
 
   <select id="selectByParams" parameterType="com.liu.crm.query.SaleChanceQuery" resultType="com.liu.crm.vo.SaleChance">
     select
-        <include refid="Base_Column_List" />
+    s.id, chance_source, customer_name, cgil, overview, link_man, link_phone, description,
+    create_man, assign_man, assign_time, is_state, dev_result, s.is_valid, s.create_date,
+    s.update_date,u.user_name uname
     from
-        t_sale_chance
+        t_sale_chance s
+    left join
+        t_user u
+    on
+        s.assign_man = u.id
     <where>
-      is_valid = 1
+      s.is_valid = 1
       <if test="customerName != null and customerName != ''">
-        and customer_name like concat('%',customerName,'%')
+        and s.customer_name like concat('%',#{customerName},'%')
       </if>
       <if test="createMan != null and createMan != ''">
-        and create_man = #{createMan}
+        and s.create_man = #{createMan}
       </if>
       <if test="isState != null">
-        and is_state = #{isState}
+        and s.is_state = #{isState}
       </if>
     </where>
   </select>
