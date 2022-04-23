@@ -7,10 +7,8 @@ layui.use(['table', 'layer'], function () {
      * 加载数据表格
      */
 
-    /**
-     * 营销机会列表展示
-     */
     var tableIns = table.render({
+        id: 'saleChanceTable',
         //容器元素的ID属性值
         elem: '#saleChanceList', // 表格绑定的ID
         //访问数据的URL （对应后台的数据接口）
@@ -27,7 +25,6 @@ layui.use(['table', 'layer'], function () {
         limit: 10,
         //开启头部工具栏
         toolbar: "#toolbarDemo",
-        id: "saleChanceListTable",
         cols: [[
             // field:要求 field 属性值与返回的数据中对应的属性字段名一致
             // title:设置列的标题
@@ -46,6 +43,7 @@ layui.use(['table', 'layer'], function () {
             {field: 'uname', title: '指派人', align: 'center'},
             {field: 'assignTime', title: '分配时间', align: 'center'},
             {field: 'createDate', title: '创建时间', align: 'center'},
+            {field: 'updateDate', title: '修改时间', align: 'center'},
             {
                 field: 'isState', title: '分配状态', align: 'center', templet: function (d) {
                     return formatterIsState(d.isState);
@@ -139,9 +137,65 @@ layui.use(['table', 'layer'], function () {
             openSaleChanceDialog();
         } else if (data.event == "del") {
             //删除操作
-
+            deleteSaleChance(data);
         }
-    })
+    });
+
+    /**
+     * 删除营销机会（删除多条记录）
+     * @param data
+     */
+    function deleteSaleChance(data) {
+        //获取数据表格选中的行数据  table.checkStatus("数据表格的ID属性"); ID 自己定义的
+        var checkStatus = table.checkStatus("saleChanceTable");
+        console.log(checkStatus);
+
+        //获取所有被选中的记录对应的数据
+        var saleChanceData = checkStatus.data;
+        console.log(saleChanceData);
+
+        //判断用户是否选择了记录，（选中行大于 0 ）
+        if(saleChanceData.length < 1){
+            layer.msg("请选择要删除的记录！",{icon:5});
+            return;
+        }
+
+        //询问用户是否确认删除记录
+        layer.confirm('您确定要删除选中的记录吗？',{icon:3 ,title:'营销机会管理'},function (index) {
+            //关闭确认框
+            layer.close(index);
+            //传递的参数是数组,   ids=1&ids=2$ids=3
+            var ids = "";
+            //循环选中的行记录的数据
+            for(var i = 0; i < saleChanceData.length; i++){
+                if(i < saleChanceData.length - 1){
+                    ids = ids + saleChanceData[i].id + "&ids=";
+                }else{
+                    ids = ids + saleChanceData[i].id;
+                }
+            }
+           // console.log(ids);
+            $.ajax({
+                type:"POST",
+                url:ctx + "/sale_chance/delete",
+                data:{
+                    ids:ids   //传递的参数是数组  ids=1&ids=2$ids=3
+                },
+                success:function (result) {
+                    //判断删除结果
+                    if(result.code == 200){
+                        //提示成功
+                        layer.msg("删除成功！",{icon:6});
+                        //刷新表格
+                        tableIns.reload();
+                    }else{
+                        //提示失败
+                        layer.msg(result.msg,{icon:5});
+                    }
+                }
+            });
+        });
+    }
 
     /**
      * 打开添加 / 修改 营销机会数据的窗口
@@ -192,7 +246,32 @@ layui.use(['table', 'layer'], function () {
             //打开修改营销机会窗口
             openSaleChanceDialog(saleChanceID);
         }else if(data.event == "del"){  //删除操作
+            //弹出确认框，询问用户是否确认删除
+            layer.confirm('确认要删除该记录吗？',{icon:3,title:"营销机会管理"},function (index){
+                //关闭确认框
+                layer.close(index);
 
+                //发送ajax请求，删除记录
+                $.ajax({
+                    type:"POST",
+                    url: ctx + "/sale_chance/delete",
+                    data:{
+                        ids:data.data.id
+                    },
+                    success:function (result) {
+                        //判断删除结果
+                        if(result.code == 200){
+                            //提示成功
+                            layer.msg("删除成功！",{icon:6});
+                            //刷新表格
+                            tableIns.reload();
+                        }else{
+                            //提示失败
+                            layer.msg(result.msg,{icon:5});
+                        }
+                    }
+                });
+            });
         }
     });
 

@@ -219,6 +219,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <!-- 多条件查询-->
   <select id="selectByParams" parameterType="com.liu.crm.query.SaleChanceQuery" resultType="com.liu.crm.vo.SaleChance">
     select
     s.id, chance_source, customer_name, cgjl, overview, link_man, link_phone, description,
@@ -241,6 +242,28 @@
       <if test="isState != null">
         and s.is_state = #{isState}
       </if>
+      <!-- 根据开发状态进行查询 -->
+      <if test="devResult != null and devResult != ''">
+        and s.dev_result = #{devResult}
+      </if>
+      <!-- 根据指派人进行查询 -->
+      <if test="assignMan != null">
+        and s.assign_man = #{assignMan}
+      </if>
     </where>
   </select>
+ <!-- 批量删除 -->
+  <update id="deleteBatch">
+    update
+        t_sale_chance
+    set
+        is_valid = 0
+    where
+        id
+    in
+        <foreach collection="array" separator="," open="(" close=")" item="id">
+          #{id}
+        </foreach>
+  </update>
+
 </mapper>

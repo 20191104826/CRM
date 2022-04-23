@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -221,4 +222,16 @@ public class SaleChanceService extends BaseService<SaleChance, Integer> {
         AssertUtil.isTrue(PhoneUtil.isMobile(linkPhone),"手机号码格式不正确！");
     }
 
+    /**
+     * 删除营销机会
+     * @param ids
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteSaleChance(Integer[] ids){
+        //判断ID是否为空
+        AssertUtil.isTrue(null == ids || ids.length < 1,"待删除记录不存在！");
+        //执行删除（更新）操作，判断受影响行数
+        AssertUtil.isTrue(saleChanceMapper.deleteBatch(ids) != ids.length,"营销机会删除失败！");
+
+    }
 }
