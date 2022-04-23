@@ -98,4 +98,44 @@ layui.use(['table','layer'],function() {
         });
     });
 
+    /**
+     * 行工具栏监听事件
+     */
+    table.on('tool(saleChances)',function (data) {
+        //判断类型
+        if(data.event == "dev"){  //开发
+
+            //打开计划项开发与详情页面
+            openCusDevPlanDialog('计划项数据开发',data.data.id);
+
+        }else if(data.event == "info"){  //详情
+
+            //打开计划项开发与详情页面
+            openCusDevPlanDialog('计划项数据维护',data.data.id);
+
+        }
+    });
+
+    /**
+     * 打开计划项开发或者详情页面
+     *
+     * @param title
+     * @param id
+     */
+    function openCusDevPlanDialog(title,id){
+        //iframe 层
+        layui.layer.open({
+            //类型
+            type: 2,
+            //标题
+            title: title,
+            //开启最大化最小化按钮
+            maxmin: true,
+            //宽高
+            area: ['750px', '550px'],
+            //url地址
+            content: ctx + "/cus_dev_plan/toCusDevPlanPage?id="+id
+        });
+    }
+
 });

@@ -148,11 +148,11 @@ layui.use(['table', 'layer'], function () {
     function deleteSaleChance(data) {
         //获取数据表格选中的行数据  table.checkStatus("数据表格的ID属性"); ID 自己定义的
         var checkStatus = table.checkStatus("saleChanceTable");
-        console.log(checkStatus);
+        // console.log(checkStatus);
 
         //获取所有被选中的记录对应的数据
         var saleChanceData = checkStatus.data;
-        console.log(saleChanceData);
+        // console.log(saleChanceData);
 
         //判断用户是否选择了记录，（选中行大于 0 ）
         if(saleChanceData.length < 1){
@@ -237,7 +237,7 @@ layui.use(['table', 'layer'], function () {
      *     });
      */
     table.on('tool(saleChances)',function (data) {
-        console.log(data);
+        // console.log(data);
         //判断类型
         if(data.event == "edit"){   //编辑操作
 

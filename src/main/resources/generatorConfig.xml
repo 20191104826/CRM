@@ -63,7 +63,7 @@
         </javaClientGenerator>
 
         <!-- TODO define tables here -->
-        <table tableName="t_sale_chance" domainObjectName="SaleChance"
+        <table tableName="t_cus_dev_plan" domainObjectName="CusDevPlan"
                enableDeleteByExample="false"
                enableUpdateByExample="false"
                enableCountByExample="false"
