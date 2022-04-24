@@ -111,11 +111,29 @@ public class SaleChanceController extends BaseController {
         return "saleChance/add_update";
     }
 
+    /**
+     * 删除营销机会 可多条
+     * @param ids
+     * @return
+     */
     @RequestMapping("delete")
     @ResponseBody
     public ResultInfo deleteSaleChance(Integer[] ids){
         //调用Service层的删除方法
         saleChanceService.deleteSaleChance(ids);
         return success("营销机会数据删除成功！");
+    }
+
+    /**
+     * 更新营销机会的开发状态
+     * @return
+     */
+    @PostMapping("updateSaleChanceDevResult")
+    @ResponseBody
+    public ResultInfo updateSaleChanceDevResult(Integer id,Integer devResult){
+
+        saleChanceService.updateSaleChanceDevResult(id,devResult);
+
+        return success("开发状态更新成功！");
     }
 }
