@@ -165,7 +165,7 @@ layui.use(['table', 'layer'], function () {
             //关闭确认框
             layer.close(index);
             //传递的参数是数组,   ids=1&ids=2$ids=3
-            var ids = "";
+            var ids = "ids=";
             //循环选中的行记录的数据
             for(var i = 0; i < saleChanceData.length; i++){
                 if(i < saleChanceData.length - 1){
@@ -178,9 +178,7 @@ layui.use(['table', 'layer'], function () {
             $.ajax({
                 type:"POST",
                 url:ctx + "/sale_chance/delete",
-                data:{
-                    ids:ids   //传递的参数是数组  ids=1&ids=2$ids=3
-                },
+                data:ids,
                 success:function (result) {
                     //判断删除结果
                     if(result.code == 200){
