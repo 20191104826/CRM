@@ -6,25 +6,23 @@ layui.use(['table', 'layer'], function () {
      * 加载数据
      */
     var tableIns = table.render({
-        elem: '#userList',
-        url: ctx + '/user/list',
+        elem: '#roleList',
+        url: ctx + '/role/list',
         cellMinWidth: 95,
         page: true,
         height: "full-125",
         limits: [10, 15, 20, 25],
         limit: 10,
         toolbar: "#toolbarDemo",
-        id: "userListTable",
+        id: "roleTable",
         cols: [[
             {type: "checkbox", fixed: "left", width: 50},
             {field: "id", title: '编号', fixed: "true", width: 80},
-            {field: 'userName', title: '用户名', minWidth: 50, align: "center"},
-            {field: 'email', title: '用户邮箱', minWidth: 100, align: 'center'},
-            {field: 'phone', title: '用户电话', minWidth:100, align:'center'},
-            {field: 'trueName', title: '真实姓名', align: 'center'},
+            {field: 'roleName', title: '角色名称', minWidth: 50, align: "center"},
+            {field: 'roleRemarker', title: '角色备注', minWidth: 100, align: 'center'},
             {field: 'createDate', title: '创建时间', align: 'center', minWidth: 150},
             {field: 'updateDate', title: '更新时间', align: 'center', minWidth: 150},
-            {title: '操作', minWidth: 150, templet: '#userListBar', fixed: "right", align: "center"}
+            {title: '操作', minWidth: 150, templet: '#roleListBar', fixed: "right", align: "center"}
         ]]
     });
 
@@ -40,9 +38,7 @@ layui.use(['table', 'layer'], function () {
             //设置需要传递给后端的数据
             where: {  //设置异步数据接口的额外参数
                 //通过文本框或者下拉框的值，设置传递的参数
-                userName: $("[name='userName']").val()   //客户名称
-                , email: $("[name='email']").val()        //创建人
-                , phone: $("[name='phone']").val()                      //状态
+                roleName: $("[name='roleName']").val()   //客户名称
             }
             , page: {
                 curr: 1   //重新从第一页开始
@@ -53,17 +49,17 @@ layui.use(['table', 'layer'], function () {
     /**
      * 监听头部工具栏
      */
-    table.on('toolbar(users)', function (data) {
-        if (data.event == "add") {  //添加用户
+    table.on('toolbar(roles)', function (data) {
+        if (data.event == "add") {  //添加角色
 
-            //打开添加/修改用户的页面
-            openAddOrUpdateUserDialog();
+            //打开添加/修改角色的页面
+            openAddOrUpdateRoleDialog();
 
-        } else if (data.event == "del") {  //删除用户
+        } else if (data.event == "del") {  //删除角色
             //获取被选中的数据信息
             var checkStatus = table.checkStatus(data.config.id);
 
-            //删除多个用户记录
+            //删除多个角色记录
             deleteUsers(checkStatus.data);
         }
     });
@@ -118,31 +114,31 @@ layui.use(['table', 'layer'], function () {
     /**
      * 监听行工具栏
      */
-    table.on('tool(users)', function (data) {
-        if (data.event == "edit") {  //更新用户
+    table.on('tool(roles)', function (data) {
+        if (data.event == "edit") {  //更新角色
 
-            //打开添加/修改用户的对话框
-            openAddOrUpdateUserDialog(data.data.id);
+            //打开添加/修改角色的对话框
+            openAddOrUpdateRoleDialog(data.data.id);
 
-        } else if (data.event == "del") {  //删除用户
-            deleteUser(data.data.id);
+        } else if (data.event == "del") {  //删除角色
+            deleteRole(data.data.id);
         }
     });
 
     /**
-     * 删除单条用户记录
+     * 删除单条角色记录
      * @param id
      */
-    function deleteUser(id) {
+    function deleteRole(id) {
         //弹出确认框，询问用户是否确认删除
-        layer.confirm('确认要删除该记录吗？', {icon: 3, title: "用户管理"}, function (index) {
+        layer.confirm('确认要删除该记录吗？', {icon: 3, title: "角色管理"}, function (index) {
             //关闭确认框
             layer.close(index);
 
             //发送ajax请求，删除记录
             $.ajax({
                 type: "POST",
-                url: ctx + "/user/delete",
+                url: ctx + "/role/delete",
                 data: {
                     ids:id
                 },
@@ -166,14 +162,14 @@ layui.use(['table', 'layer'], function () {
     /**
      * 打开添加/修改用户的对话框
      */
-    function openAddOrUpdateUserDialog(id) {
-        var title = "<h3>用户管理 - 添加用户</h3>"
-        var url = ctx + "/user/toAddOrUpdateUserPage";
-
+    function openAddOrUpdateRoleDialog(id) {
+        var title = "<h3>角色管理 - 添加角色</h3>"
+        var url = ctx + "/role/toAddOrUpdateRolePage";
         if (id != null && id != '') {
             url += "?id=" + id;   //传递主键，查询数据
-            title = "<h3>用户管理 - 更新用户</h3>"
+            title = "<h3>角色管理 - 更新角色</h3>"
         }
+
         //iframe 层
         layui.layer.open({
             //类型
@@ -183,7 +179,7 @@ layui.use(['table', 'layer'], function () {
             //开启最大化最小化按钮
             maxmin: true,
             //宽高
-            area: ['650px', '400px'],
+            area: ['500px', '400px'],
             //url地址
             content: url
         });

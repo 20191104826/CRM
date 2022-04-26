@@ -63,7 +63,7 @@
         </javaClientGenerator>
 
         <!-- TODO define tables here -->
-        <table tableName="t_cus_dev_plan" domainObjectName="CusDevPlan"
+        <table tableName="t_user_role" domainObjectName="UserRole"
                enableDeleteByExample="false"
                enableUpdateByExample="false"
                enableCountByExample="false"

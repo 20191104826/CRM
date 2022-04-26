@@ -35,7 +35,16 @@ create_date, update_date
       #{isValid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.liu.crm.vo.User">
+  <!-- 添加操作
+          默认返回的是受影响行数，可以设置返回主键（自动增长）
+          useGeneratedKeys="true"  true : 返回的是主键id，
+                表示会获取主键，并赋值到keyProperty属性设置的模型属性（JAVABean实体类中的属性字段）
+          keyProperty="对应Bean对象中的字段名"　，表示返回值将赋值给数据属性中的那个属性字段
+          keyColumn="对应数据库中的字段名"　　，设置数据库中自动生成的主键名
+
+          返回的主键会自动设置到实体类中对应的id属性字段中
+      -->
+  <insert id="insertSelective" parameterType="com.liu.crm.vo.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

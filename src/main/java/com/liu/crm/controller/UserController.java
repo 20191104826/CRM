@@ -150,7 +150,7 @@ public class UserController extends BaseController {
      * @param user
      * @return
      */
-    @RequestMapping("add")
+    @PostMapping("add")
     @ResponseBody
     public ResultInfo addUser(User user) {
         userService.addUser(user);
@@ -168,7 +168,7 @@ public class UserController extends BaseController {
         if (id != null) {
             User user = userService.selectByPrimaryKey(id);
             //将数据设置到请求域中
-            request.setAttribute("user", user);
+            request.setAttribute("userInfo", user);
         }
         return "user/add_update";
     }
